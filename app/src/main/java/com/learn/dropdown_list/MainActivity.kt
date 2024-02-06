@@ -1,6 +1,7 @@
 package com.learn.dropdown_list
 
 import android.os.Bundle
+import androidx.compose.material3.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -13,8 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,11 +40,45 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun OnboardingScreen(
+    onContinueClicked: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Welcome to the app")
+
+        Button(
+            modifier = Modifier.padding(vertical = 24.dp),
+            onClick = onContinueClicked
+        ) {
+            Text(text = "Continue")
+        }
+    }
+}
+
+@Composable
+fun AppContent(modifier: Modifier = Modifier) {
+    var showOnBoarding by remember { mutableStateOf(true) }
+
+    Surface(modifier){
+        if (showOnBoarding) {
+            OnboardingScreen(onContinueClicked = { showOnBoarding = false })
+        } else {
+            DropDownList()
+        }
+    }
+}
+
+@Composable
 fun DropDownList(
     modifier: Modifier = Modifier,
 ) {
     val items = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
-
+    var showOnBoarding by remember { mutableStateOf(false) }
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -50,6 +87,29 @@ fun DropDownList(
         for (item in items) {
             Greeting(name = item)
         }
+
+        Button(
+            modifier = Modifier.padding(vertical = 24.dp),
+            onClick = { showOnBoarding = true }
+        ) {
+            Text(text = "Back to Onboarding") // not implemented yet
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AppContentPreview() {
+    DropDownListTheme {
+        AppContent()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DropDownListPreview() {
+    DropDownListTheme {
+        DropDownList()
     }
 }
 
@@ -84,10 +144,3 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DropDownListPreview() {
-    DropDownListTheme {
-        DropDownList()
-    }
-}
