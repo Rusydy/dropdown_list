@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    DropDownList()
+                    AppContent()
                 }
             }
         }
@@ -68,7 +68,7 @@ fun AppContent(modifier: Modifier = Modifier) {
         if (showOnBoarding) {
             OnboardingScreen(onContinueClicked = { showOnBoarding = false })
         } else {
-            DropDownList()
+            DropDownList(navigateToOnboarding = { showOnBoarding = true })
         }
     }
 }
@@ -76,9 +76,10 @@ fun AppContent(modifier: Modifier = Modifier) {
 @Composable
 fun DropDownList(
     modifier: Modifier = Modifier,
+    navigateToOnboarding: () -> Unit
 ) {
     val items = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
-    var showOnBoarding by remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -90,9 +91,9 @@ fun DropDownList(
 
         Button(
             modifier = Modifier.padding(vertical = 24.dp),
-            onClick = { showOnBoarding = true }
+            onClick = { navigateToOnboarding() }
         ) {
-            Text(text = "Back to Onboarding") // not implemented yet
+            Text(text = "Back to Onboarding")
         }
     }
 }
@@ -109,7 +110,7 @@ fun AppContentPreview() {
 @Composable
 fun DropDownListPreview() {
     DropDownListTheme {
-        DropDownList()
+        DropDownList( navigateToOnboarding = {})
     }
 }
 
