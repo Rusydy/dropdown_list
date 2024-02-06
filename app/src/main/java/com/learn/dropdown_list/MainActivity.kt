@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -78,22 +79,24 @@ fun DropDownList(
     modifier: Modifier = Modifier,
     navigateToOnboarding: () -> Unit
 ) {
-    val items = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
+    val items = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7")
 
-    Column(
+    LazyColumn(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        for (item in items) {
-            Greeting(name = item)
+        items(items.size) { index ->
+            Greeting(name = items[index])
         }
 
-        Button(
-            modifier = Modifier.padding(vertical = 24.dp),
-            onClick = { navigateToOnboarding() }
-        ) {
-            Text(text = "Back to Onboarding")
+        item {
+            Button(
+                onClick = navigateToOnboarding,
+                modifier = Modifier.padding(24.dp)
+            ) {
+                Text(text = "Show Onboarding")
+            }
         }
     }
 }
