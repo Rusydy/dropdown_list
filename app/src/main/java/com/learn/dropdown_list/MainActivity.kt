@@ -68,7 +68,7 @@ fun OnboardingScreen(
 fun AppContent(modifier: Modifier = Modifier) {
     var showOnBoarding by remember { mutableStateOf(true) }
 
-    Surface(modifier){
+    Surface(modifier) {
         if (showOnBoarding) {
             OnboardingScreen(onContinueClicked = { showOnBoarding = false })
         } else {
@@ -86,7 +86,7 @@ fun DropDownList(
 
     Box(
         modifier = modifier.fillMaxSize()
-    ){
+    ) {
         LazyColumn(modifier = modifier) {
             items(items.size) { index ->
                 Greeting(name = items[index])
@@ -95,7 +95,9 @@ fun DropDownList(
 
         Button(
             onClick = navigateToOnboarding,
-            modifier = Modifier.align(Alignment.BottomStart).padding(16.dp),
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(16.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.tertiary,
                 contentColor = Color.White
@@ -103,22 +105,6 @@ fun DropDownList(
         ) {
             Text(text = "Onboarding")
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AppContentPreview() {
-    DropDownListTheme {
-        AppContent()
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DropDownListPreview() {
-    DropDownListTheme {
-        DropDownList( navigateToOnboarding = {})
     }
 }
 
@@ -153,3 +139,18 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun AppContentPreview() {
+    DropDownListTheme {
+        AppContent()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DropDownListPreview() {
+    DropDownListTheme {
+        DropDownList(navigateToOnboarding = {})
+    }
+}
