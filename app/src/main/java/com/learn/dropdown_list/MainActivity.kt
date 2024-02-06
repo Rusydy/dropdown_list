@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DropDownListTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
@@ -41,14 +40,12 @@ class MainActivity : ComponentActivity() {
 fun DropDownList(
     modifier: Modifier = Modifier,
 ) {
-    // list of strings
     val items = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
 
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-
     ) {
         for (item in items) {
             Greeting(name = item)
@@ -65,7 +62,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
-
         Row(
             modifier = modifier.padding(24.dp),
         ) {
@@ -85,7 +81,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 Text(if (expanded.value) "Show less" else "Show more")
             }
         }
-
     }
 }
 
