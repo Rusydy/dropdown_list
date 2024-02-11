@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.compose.material3.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -113,7 +115,12 @@ fun DropDownList(
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     val extraPadding by animateDpAsState(
-        if (expanded) 48.dp else 0.dp, label = ""
+        if (expanded) 48.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = ""
     )
 
     Surface(
@@ -126,7 +133,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(bottom = extraPadding)
+                    .padding(bottom = extraPadding.coerceAtLeast(0.dp))
 
             ) {
                 Text(text = "Hello")
