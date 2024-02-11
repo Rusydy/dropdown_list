@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.compose.material3.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -83,7 +83,7 @@ fun DropDownList(
     modifier: Modifier = Modifier,
     navigateToOnboarding: () -> Unit
 ) {
-    val items = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7")
+    val items = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10", "Item 11", "Item 12", "Item 13", "Item 14", "Item 15", "Item 16", "Item 17", "Item 18", "Item 19", "Item 20")
 
     Box(
         modifier = modifier.fillMaxSize()
@@ -111,8 +111,10 @@ fun DropDownList(
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val expanded = rememberSaveable { mutableStateOf(false) }
-    val extraPadding = if (expanded.value) 48.dp else 0.dp
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val extraPadding by animateDpAsState(
+        if (expanded) 48.dp else 0.dp, label = ""
+    )
 
     Surface(
         color = MaterialTheme.colorScheme.primary,
@@ -132,9 +134,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             }
 
             ElevatedButton(
-                onClick = { expanded.value = !expanded.value },
+                onClick = { expanded = !expanded },
             ) {
-                Text(if (expanded.value) "Show less" else "Show more")
+                Text(if (expanded) "Show less" else "Show more")
             }
         }
     }
