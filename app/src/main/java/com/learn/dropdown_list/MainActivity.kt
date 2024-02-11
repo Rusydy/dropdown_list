@@ -1,5 +1,6 @@
 package com.learn.dropdown_list
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.compose.material3.Button
 import androidx.activity.ComponentActivity
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.learn.dropdown_list.ui.theme.DropDownListTheme
@@ -137,7 +139,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
             ) {
                 Text(text = "Hello")
-                Text(text = name)
+                Text(text = name, style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold))
             }
 
             ElevatedButton(
@@ -149,7 +151,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = UI_MODE_NIGHT_YES,
+    name = "AppContentPreviewDark"
+)
+@Preview(showBackground = true, widthDp = 320)
 @Composable
 fun AppContentPreview() {
     DropDownListTheme {
